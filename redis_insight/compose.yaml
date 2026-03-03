@@ -1,0 +1,15 @@
+services:
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "5540:5540"
+    restart: unless-stopped
+    environment:
+      - RI_ENCRYPTION_KEY=${RI_ENCRYPTION_KEY}
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true

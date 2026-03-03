@@ -1,0 +1,18 @@
+services:
+  redis-wordpress:
+    image: redis:7-alpine
+    container_name: redis-wordpress
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    networks:
+      - proxy-net
+    volumes:
+      - redisdata:/data
+
+volumes:
+  redisdata:
+    driver: local
+
+networks:
+  proxy-net:
+    external: true
