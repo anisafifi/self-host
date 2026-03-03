@@ -1,0 +1,19 @@
+services:
+  nginx:
+    image: "jc21/nginx-proxy-manager:latest"
+    restart: always
+    environment:
+      TZ: "Asia/Dhaka"
+    ports:
+      - "80:80"
+      # - "81:81"
+      - "443:443"
+    volumes:
+      - ./docker_data/nginx/data:/data
+      - ./docker_data/nginx/letsencrypt:/etc/letsencrypt
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
