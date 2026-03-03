@@ -1,0 +1,3 @@
+headscale.cloud.lab.xl {
+    reverse_proxy headscale:8080
+}
