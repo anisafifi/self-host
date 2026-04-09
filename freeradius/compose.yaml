@@ -1,0 +1,4 @@
+services:
+  freeradius:
+    image: freeradius/freeradius-server
+    restart: unless-stopped
