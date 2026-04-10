@@ -1,0 +1,41 @@
+server default {
+
+    listen {
+        type      = auth
+        ipaddr    = *
+        port      = 1812
+    }
+
+    listen {
+        type      = acct
+        ipaddr    = *
+        port      = 1813
+    }
+
+    authorize {
+        filter_username
+        preprocess
+        rest            # call ap.xerobi.com/radius/auth
+        if (ok || updated) {
+            update control {
+                Auth-Type := Accept
+            }
+        }
+    }
+
+    authenticate {
+        Auth-Type Accept {
+            ok
+        }
+    }
+
+    accounting {
+        ok
+    }
+
+    post-auth {
+        Post-Auth-Type REJECT {
+            ok
+        }
+    }
+}

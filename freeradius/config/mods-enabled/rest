@@ -1,0 +1,23 @@
+rest {
+    connect_uri = "https://ap.xerobi.com"
+
+    authorize {
+        uri    = "${..connect_uri}/radius/auth"
+        method = "post"
+        body   = "json"
+        data   = '{ "Calling-Station-Id": "%{Calling-Station-Id}", "User-Name": "%{User-Name}" }'
+
+        tls {
+            check_cert        = yes
+            check_cert_cn     = yes
+        }
+    }
+
+    # Timeout settings
+    connect_timeout = 3.0
+    timeout         = 5.0
+
+    authenticate {}
+    accounting   {}
+    post-auth    {}
+}

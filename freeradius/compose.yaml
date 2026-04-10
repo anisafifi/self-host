@@ -1,4 +1,13 @@
 services:
   freeradius:
-    image: freeradius/freeradius-server
+    image: freeradius/freeradius-server:latest
+    container_name: freeradius
     restart: unless-stopped
+    network_mode: host          # needed so Mikrotik UDP packets reach it
+    volumes:
+      - ./config/clients.conf:/etc/freeradius/3.0/clients.conf
+      - ./config/mods-enabled/rest:/etc/freeradius/3.0/mods-enabled/rest
+      - ./config/sites-enabled/default:/etc/freeradius/3.0/sites-enabled/default
+    environment:
+      - TZ=Asia/Dhaka
+    command: freeradius -X    # remove -X in production (verbose debug mode)
